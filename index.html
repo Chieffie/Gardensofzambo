@@ -300,7 +300,7 @@
                 
                 // Formatar nome da região para exibição
                 const regionName = region.replace('Região ', '');
-                selectedRegionTitle.textContent = Plantas recomendadas para a Região ${regionName};
+                selectedRegionTitle.textContent = `Plantas recomendadas para a Região ${regionName}`;
                 
                 // Scrollar suavemente até os resultados
                 setTimeout(() => {
@@ -343,7 +343,7 @@
                     const card = document.createElement('div');
                     card.className = 'plant-card rounded-lg overflow-hidden shadow-lg';
                     
-                    card.innerHTML = 
+                    card.innerHTML = `
                         <div class="bg-gray-50 py-3 px-4 border-b border-gray-200">
                             <h3 class="font-bold text-xl text-green-800">${plant.name}</h3>
                         </div>
@@ -360,7 +360,7 @@
                                 </p>
                             </div>
                         </div>
-                    ;
+                    `;
                     
                     // Adicionar o card ao container
                     container.appendChild(card);
