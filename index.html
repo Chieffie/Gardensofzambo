@@ -1,392 +1,226 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gardens of Zambo - Buscador de Cultivo por Região</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e6f7e9, #c5e8cb);
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .vista-container {
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            margin-bottom: 20px;
-        }
-        
-        .vista-button {
-            background: linear-gradient(to bottom, #9fe97c, #75c959);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            transition: all 0.2s;
-            color: #fff;
-            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-        }
-        
-        .vista-button:hover {
-            background: linear-gradient(to bottom, #b5ee9a, #8ad66f);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-            transform: translateY(-1px);
-        }
-        
-        .vista-header {
-            background: linear-gradient(to right, #75c959, #5ea042);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .plant-card {
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .plant-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .season-regular {
-            background-color: #ffeb99;
-            color: #664d00;
-            border-radius: 6px;
-        }
-        
-        .season-yearround {
-            background-color: #90ee90;
-            color: #006400;
-            border-radius: 6px;
-        }
-        
-        .season-notrecommended {
-            background-color: #ffcccc;
-            color: #990000;
-            border-radius: 6px;
-        }
-        
-        .plant-type-header {
-            background: linear-gradient(to right, #5ea042, #75c959);
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-        }
-        
-        select {
-            background-image: linear-gradient(to bottom, #ffffff, #f9f9f9);
-            border: 1px solid #ddd;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
-        }
-        
-        select:focus {
-            border-color: #75c959;
-            box-shadow: 0 0 0 2px rgba(117, 201, 89, 0.3);
-        }
-        
-        .legend-item {
-            display: inline-flex;
-            align-items: center;
-            margin-right: 15px;
-            margin-bottom: 8px;
-        }
-        
-        .legend-color {
-            width: 16px;
-            height: 16px;
-            margin-right: 8px;
-            border-radius: 4px;
-        }
-        
-        .blog-placeholder {
-            font-style: italic;
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .aero-glow {
-            box-shadow: 0 0 15px rgba(117, 201, 89, 0.5);
-        }
-        
-        .page-title {
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        
-        @media (max-width: 640px) {
-            .plant-card {
-                margin-bottom: 16px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gardens of Zambo - Buscador de Cultivo por Região</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet"/>
+  <style>
+    body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:linear-gradient(135deg,#e6f7e9,#c5e8cb);
+      color:#333; min-height:100vh; display:flex; flex-direction:column;}
+    .vista-container { background:rgba(255,255,255,0.85);
+      border-radius:12px; box-shadow:0 8px 32px rgba(31,38,135,0.15);
+      backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.18);
+      margin-bottom:20px;}
+    .vista-button { background:linear-gradient(to bottom,#9fe97c,#75c959);
+      border:1px solid rgba(255,255,255,0.4); box-shadow:0 2px 6px rgba(0,0,0,0.2);
+      transition:all 0.2s; color:#fff; text-shadow:1px 1px 1px rgba(0,0,0,0.2);}
+    .vista-button:hover { background:linear-gradient(to bottom,#b5ee9a,#8ad66f);
+      box-shadow:0 4px 10px rgba(0,0,0,0.25); transform:translateY(-1px);}
+    .vista-header { background:linear-gradient(to right,#75c959,#5ea042);
+      box-shadow:0 4px 15px rgba(0,0,0,0.1); border-bottom:1px solid rgba(255,255,255,0.3);}
+    .plant-card { transition:transform 0.3s, box-shadow 0.3s;
+      border:1px solid rgba(255,255,255,0.4); background:rgba(255,255,255,0.9);
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+    .plant-card:hover { transform:translateY(-5px);
+      box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+    .season-regular { background:#ffeb99; color:#664d00; border-radius:6px;}
+    .season-yearround { background:#90ee90; color:#006400; border-radius:6px;}
+    .season-notrecommended { background:#ffcccc; color:#990000; border-radius:6px;}
+    .plant-type-header { background:linear-gradient(to right,#5ea042,#75c959);
+      color:white; text-shadow:1px 1px 2px rgba(0,0,0,0.3); border-radius:8px;}
+    select { background-image:linear-gradient(to bottom,#fff,#f9f9f9);
+      border:1px solid #ddd; box-shadow:inset 0 1px 2px rgba(0,0,0,0.07);}
+    select:focus { border-color:#75c959; box-shadow:0 0 0 2px rgba(117,201,89,0.3);}
+    .legend-item { display:inline-flex; align-items:center;
+      margin-right:15px; margin-bottom:8px;}
+    .legend-color { width:16px; height:16px; margin-right:8px;
+      border-radius:4px;}
+    .blog-placeholder { font-style:italic; color:#666; font-size:0.9rem;}
+    .aero-glow { box-shadow:0 0 15px rgba(117,201,89,0.5);}
+    .page-title { text-shadow:0 2px 4px rgba(0,0,0,0.2);}
+    @media(max-width:640px){.plant-card{margin-bottom:16px;}}
+  </style>
 </head>
 <body>
-    <header class="vista-header py-6 text-white mb-8 aero-glow">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-bold text-center page-title">Gardens of Zambo</h1>
-            <p class="text-xl text-center mt-2">Buscador de Cultivo por Região</p>
+  <header class="vista-header py-6 text-white mb-8 aero-glow">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold page-title">Gardens of Zambo</h1>
+      <p class="text-xl mt-2">Buscador de Cultivo por Região</p>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 mb-8 flex-grow">
+    <div class="vista-container p-6 mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-center text-green-800">
+        Selecione sua região
+      </h2>
+      <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+        <div class="relative w-full md:w-64">
+          <select id="regionSelect"
+                  class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline">
+            <option value="">Selecione uma região</option>
+            <option value="Região Sul">Sul</option>
+            <option value="Região Sudeste">Sudeste</option>
+            <option value="Região Nordeste">Nordeste</option>
+            <option value="Região Centro - Oeste">Centro-Oeste</option>
+            <option value="Região Norte">Norte</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <i class="fas fa-chevron-down"></i>
+          </div>
         </div>
-    </header>
-
-    <div class="container mx-auto px-4 mb-8 flex-grow">
-        <div class="vista-container p-6 mb-8">
-            <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Selecione sua região</h2>
-            
-            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-                <div class="relative w-full md:w-64">
-                    <select id="regionSelect" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="">Selecione uma região</option>
-                        <option value="Região Sul">Sul</option>
-                        <option value="Região Sudeste">Sudeste</option>
-                        <option value="Região Nordeste">Nordeste</option>
-                        <option value="Região Centro - Oeste">Centro-Oeste</option>
-                        <option value="Região Norte">Norte</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
-                </div>
-                
-                <button id="searchButton" class="vista-button font-bold py-3 px-6 rounded-full flex items-center">
-                    <i class="fas fa-search mr-2"></i> Buscar
-                </button>
-            </div>
-        </div>
-
-        <div id="resultsContainer" class="vista-container p-6 hidden">
-            <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Plantas Cultiváveis</h2>
-            <h3 id="selectedRegionTitle" class="text-xl font-semibold mb-6 text-center text-green-700"></h3>
-            
-            <div class="mb-6 bg-white bg-opacity-70 p-4 rounded-lg">
-                <h4 class="font-semibold mb-2 text-green-800"><i class="fas fa-info-circle mr-1"></i> Legenda:</h4>
-                <div class="flex flex-wrap justify-center">
-                    <div class="legend-item">
-                        <div class="legend-color season-regular"></div>
-                        <span>Épocas Recomendadas</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color season-yearround"></div>
-                        <span>Ano Todo</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color season-notrecommended"></div>
-                        <span>Não Recomendado</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Frutas, Vegetais e Hortaliças -->
-            <div class="mb-8">
-                <h3 class="plant-type-header text-xl font-bold p-3 rounded-lg mb-4">
-                    <i class="fas fa-carrot mr-2"></i> Frutas, Vegetais e Hortaliças
-                </h3>
-                <div id="vegetablesResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Resultados serão inseridos aqui -->
-                </div>
-            </div>
-
-            <!-- Tubérculos e Raízes -->
-            <div class="mb-8">
-                <h3 class="plant-type-header text-xl font-bold p-3 rounded-lg mb-4">
-                    <i class="fas fa-seedling mr-2"></i> Tubérculos e Raízes
-                </h3>
-                <div id="tuberResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Resultados serão inseridos aqui -->
-                </div>
-            </div>
-        </div>
-
-        <div id="noResultsContainer" class="vista-container p-8 text-center hidden">
-            <i class="fas fa-exclamation-circle text-yellow-500 text-4xl mb-4"></i>
-            <p class="text-xl">Nenhuma planta encontrada para a região selecionada.</p>
-            <p class="mt-2 text-gray-600">Por favor, escolha outra região ou contate-nos para adicionar mais dados.</p>
-        </div>
+        <button id="searchButton" class="vista-button font-bold py-3 px-6 rounded-full flex items-center">
+          <i class="fas fa-search mr-2"></i> Buscar
+        </button>
+      </div>
     </div>
 
-    <footer class="vista-header py-4 text-white mt-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>© 2023 Gardens of Zambo - Todos os direitos reservados</p>
-            <p class="text-sm mt-1">Desenvolvido para ajudar agricultores e jardineiros em todo o Brasil</p>
+    <div id="resultsContainer" class="vista-container p-6 hidden">
+      <h2 class="text-2xl font-bold mb-4 text-center text-green-800">Plantas Cultiváveis</h2>
+      <h3 id="selectedRegionTitle" class="text-xl font-semibold mb-6 text-center text-green-700"></h3>
+
+      <div class="mb-6 bg-white bg-opacity-70 p-4 rounded-lg">
+        <h4 class="font-semibold mb-2 text-green-800"><i class="fas fa-info-circle mr-1"></i> Legenda:</h4>
+        <div class="flex flex-wrap justify-center">
+          <div class="legend-item"><div class="legend-color season-regular"></div>Épocas Recomendadas</div>
+          <div class="legend-item"><div class="legend-color season-yearround"></div>Ano Todo</div>
+          <div class="legend-item"><div class="legend-color season-notrecommended"></div>Não Recomendado</div>
         </div>
-    </footer>
+      </div>
 
-    <script>
-        // Dados das plantas - Frutas, Vegetais e Hortaliças
-        const plantData = {
-            vegetables: [
-                { name: "Abóbora", "Região Sudeste": "Setembro a Março", "Região Sul": "Outubro a Fevereiro", "Região Centro - Oeste": "Ano todo", "Região Norte": "Março a outubro", "Região Nordeste": "Abril a Agosto" },
-                { name: "Abobrinha", "Região Sudeste": "Setembro a Maio", "Região Sul": "Agosto a Maio", "Região Centro - Oeste": "Março a Outubro", "Região Norte": "Ano todo", "Região Nordeste": "Abril a Agosto" },
-                { name: "Acelga", "Região Sudeste": "Fevereiro a Julho", "Região Sul": "Fevereiro a Julho", "Região Centro - Oeste": "Não é Recomendado", "Região Norte": "Abril a Julho", "Região Nordeste": "Não é Recomendado" },
-                { name: "Agrião", "Região Sudeste": "Ano todo", "Região Sul": "Fevereiro a Novembro", "Região Centro - Oeste": "Março a Setembro", "Região Norte": "Abril a Setembro", "Região Nordeste": "Abril a Agosto" },
-                { name: "Alface", "Região Sudeste": "Ano todo", "Região Sul": "Ano todo", "Região Centro - Oeste": "Março a Setembro", "Região Norte": "Abril a Setembro", "Região Nordeste": "Abril a Agosto" },
-                { name: "Almeirão", "Região Sudeste": "Fevereiro a Julho", "Região Sul": "Fevereiro a Setembro", "Região Centro - Oeste": "Março a Agosto", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" },
-                { name: "Berinjela", "Região Sudeste": "Ano todo", "Região Sul": "Setembro a Março", "Região Centro - Oeste": "Março a Outubro", "Região Norte": "Março a Outubro", "Região Nordeste": "Ano todo" },
-                { name: "Beterraba", "Região Sudeste": "Abril a Julho", "Região Sul": "Fevereiro a Julho", "Região Centro - Oeste": "Março a Agosto", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" },
-                { name: "Brócolis", "Região Sudeste": "Fevereiro a Julho", "Região Sul": "Fevereiro a Julho", "Região Centro - Oeste": "Março a Julho", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" },
-                { name: "Couve", "Região Sudeste": "Fevereiro a Julho", "Região Sul": "Fevereiro a Agosto", "Região Centro - Oeste": "Março a Julho", "Região Norte": "Abril a Julho", "Região Nordeste": "Abril a Julho" },
-                { name: "Espinafre", "Região Sudeste": "Fevereiro a Julho", "Região Sul": "Fevereiro a Julho", "Região Centro - Oeste": "Março a Agosto", "Região Norte": "Abril a Agosto", "Região Nordeste": "Abril a Julho" },
-                { name: "Jiló", "Região Sudeste": "Setembro a Fevereiro", "Região Sul": "Setembro a Janeiro", "Região Centro - Oeste": "Março a Outubro", "Região Norte": "Março a Outubro", "Região Nordeste": "Março a Setembro" },
-                { name: "Pepino", "Região Sudeste": "Setembro a Fevereiro", "Região Sul": "Setembro a Janeiro", "Região Centro - Oeste": "Março a Outubro", "Região Norte": "Ano todo", "Região Nordeste": "Março a Setembro" },
-                { name: "Pimentão", "Região Sudeste": "Setembro a Fevereiro", "Região Sul": "Setembro a Janeiro", "Região Centro - Oeste": "Março a Outubro", "Região Norte": "Ano todo", "Região Nordeste": "Ano todo" },
-                { name: "Quiabo", "Região Sudeste": "Setembro a Fevereiro", "Região Sul": "Setembro a Janeiro", "Região Centro - Oeste": "Março a Outubro", "Região Norte": "Ano todo", "Região Nordeste": "Abril a Setembro" },
-                { name: "Repolho", "Região Sudeste": "Fevereiro a Julho", "Região Sul": "Janeiro a Agosto", "Região Centro - Oeste": "Março a Agosto", "Região Norte": "Abril a Agosto", "Região Nordeste": "Abril a Agosto" },
-                { name: "Tomate", "Região Sudeste": "Setembro a Fevereiro", "Região Sul": "Setembro a Janeiro", "Região Centro - Oeste": "Março a Setembro", "Região Norte": "Abril a Setembro", "Região Nordeste": "Abril a Setembro" },
-                { name: "Vagem", "Região Sudeste": "Setembro a Março", "Região Sul": "Setembro a Fevereiro", "Região Centro - Oeste": "Março a Setembro", "Região Norte": "Abril a Agosto", "Região Nordeste": "Abril a Agosto" }
-            ],
-            tubers: [
-                { name: "Alho", "Região Sudeste": "Março a Abril", "Região Sul": "Março a Junho", "Região Centro - Oeste": "Março a Abril", "Região Norte": "Não é Recomendado", "Região Nordeste": "Maio" },
-                { name: "Aipim", "Região Sudeste": "Ano Todo", "Região Sul": "Setembro a Janeiro", "Região Centro - Oeste": "Ano Todo", "Região Norte": "Ano Todo", "Região Nordeste": "Ano Todo" },
-                { name: "Batata", "Região Sudeste": "Novembro a Dezembro", "Região Sul": "Abril a Maio", "Região Centro - Oeste": "Abril a Maio", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" },
-                { name: "Batata Doce", "Região Sudeste": "Outubro a Novembro", "Região Sul": "Setembro a Fevereiro", "Região Centro - Oeste": "Ano Todo", "Região Norte": "Ano Todo", "Região Nordeste": "Ano Todo" },
-                { name: "Beterraba", "Região Sudeste": "Março a Julho", "Região Sul": "Fevereiro a Agosto", "Região Centro - Oeste": "Março a Agosto", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" },
-                { name: "Cebola", "Região Sudeste": "Março a Maio", "Região Sul": "Abril a Maio", "Região Centro - Oeste": "Março a Maio", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" },
-                { name: "Cenoura", "Região Sudeste": "Ano Todo", "Região Sul": "Agosto a Janeiro", "Região Centro - Oeste": "Março a Julho", "Região Norte": "Abril a Julho", "Região Nordeste": "Abril a Julho" },
-                { name: "Inhame", "Região Sudeste": "Setembro a Novembro", "Região Sul": "Agosto a Março", "Região Centro - Oeste": "Ano Todo", "Região Norte": "Ano Todo", "Região Nordeste": "Ano Todo" },
-                { name: "Mandioquinha", "Região Sudeste": "Abril a Agosto", "Região Sul": "Fevereiro a Maio", "Região Centro - Oeste": "Março a Maio", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" },
-                { name: "Nabo", "Região Sudeste": "Março a Junho", "Região Sul": "Fevereiro a Agosto", "Região Centro - Oeste": "Março a Julho", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" },
-                { name: "Rabanete", "Região Sudeste": "Fevereiro a Julho", "Região Sul": "Fevereiro a Setembro", "Região Centro - Oeste": "Março a Agosto", "Região Norte": "Não é Recomendado", "Região Nordeste": "Não é Recomendado" }
-            ]
-        };
+      <!-- Frutas, Vegetais e Hortaliças -->
+      <div class="mb-8">
+        <h3 class="plant-type-header text-xl font-bold p-3 rounded-lg mb-4">
+          <i class="fas fa-carrot mr-2"></i> Frutas, Vegetais e Hortaliças
+        </h3>
+        <div id="vegetablesResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+      <!-- Tubérculos e Raízes -->
+      <div class="mb-8">
+        <h3 class="plant-type-header text-xl font-bold p-3 rounded-lg mb-4">
+          <i class="fas fa-seedling mr-2"></i> Tubérculos e Raízes
+        </h3>
+        <div id="tuberResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </div>
 
-        // Evento de clique no botão de busca
-        document.getElementById('searchButton').addEventListener('click', function() {
-            searchPlants();
-        });
+    <div id="noResultsContainer" class="vista-container p-8 text-center hidden">
+      <i class="fas fa-exclamation-circle text-yellow-500 text-4xl mb-4"></i>
+      <p class="text-xl">Nenhuma planta encontrada para a região selecionada.</p>
+      <p class="mt-2 text-gray-600">Por favor, escolha outra região.</p>
+    </div>
+  </div>
 
-        // Evento de Enter no select
-        document.getElementById('regionSelect').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchPlants();
-            }
-        });
+  <footer class="vista-header py-4 text-white mt-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2023 Gardens of Zambo - Todos os direitos reservados</p>
+      <p class="text-sm mt-1">Desenvolvido para ajudar agricultores e jardineiros em todo o Brasil</p>
+    </div>
+  </footer>
 
-        // Função para buscar plantas
-        function searchPlants() {
-            const region = document.getElementById('regionSelect').value;
-            
-            // Validar se uma região foi selecionada
-            if (!region) {
-                alert('Por favor, selecione uma região para continuar.');
-                return;
-            }
-            
-            const vegetablesContainer = document.getElementById('vegetablesResults');
-            const tubersContainer = document.getElementById('tuberResults');
-            const resultsContainer = document.getElementById('resultsContainer');
-            const noResultsContainer = document.getElementById('noResultsContainer');
-            const selectedRegionTitle = document.getElementById('selectedRegionTitle');
-            
-            // Limpar resultados anteriores
-            vegetablesContainer.innerHTML = '';
-            tubersContainer.innerHTML = '';
-            
-            // Filtrar e mostrar resultados
-            let vegetablesFound = populatePlants(plantData.vegetables, region, vegetablesContainer);
-            let tubersFound = populatePlants(plantData.tubers, region, tubersContainer);
-            
-            // Mostrar resultados ou mensagem de nada encontrado
-            if (vegetablesFound || tubersFound) {
-                resultsContainer.classList.remove('hidden');
-                noResultsContainer.classList.add('hidden');
-                
-                // Formatar nome da região para exibição
-                const regionName = region.replace('Região ', '');
-                selectedRegionTitle.textContent = `Plantas recomendadas para a Região ${regionName}`;
-                
-                // Scrollar suavemente até os resultados
-                setTimeout(() => {
-                    resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-            } else {
-                resultsContainer.classList.add('hidden');
-                noResultsContainer.classList.remove('hidden');
-                
-                // Scrollar suavemente até a mensagem de nenhum resultado
-                setTimeout(() => {
-                    noResultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-            }
+  <!-- ========== NOVO SCRIPT ========== -->
+  <script>
+    let plantData = { vegetables: [], tubers: [] };
+
+    // 1) Carrega o JSON
+    fetch('plantas.json')
+      .then(res => res.json())
+      .then(list => {
+        const tuberNames = [
+          'Aipim','Batata','Batata-doce','Beterraba','Cebola',
+          'Cenoura','Gengibre','Inhame','Mandioquinha','Nabo',
+          'Rabanete','Inhame-cará'
+        ];
+        plantData.vegetables = list.filter(p => !tuberNames.includes(p.nome));
+        plantData.tubers     = list.filter(p =>  tuberNames.includes(p.nome));
+      })
+      .catch(err => console.error('Erro ao carregar plantas.json:', err));
+
+    document.getElementById('searchButton').addEventListener('click', searchPlants);
+    document.getElementById('regionSelect').addEventListener('keypress', e => {
+      if (e.key === 'Enter') searchPlants();
+    });
+
+    function searchPlants() {
+      const region = document.getElementById('regionSelect').value;
+      if (!region) return alert('Selecione uma região.');
+
+      const vegC = document.getElementById('vegetablesResults');
+      const tubC = document.getElementById('tuberResults');
+      vegC.innerHTML = ''; tubC.innerHTML = '';
+
+      const foundVeg = populatePlants(plantData.vegetables, region, vegC);
+      const foundTub = populatePlants(plantData.tubers,     region, tubC);
+
+      document.getElementById('resultsContainer').classList.toggle('hidden', !(foundVeg||foundTub));
+      document.getElementById('noResultsContainer').classList.toggle('hidden',  (foundVeg||foundTub));
+      if (foundVeg||foundTub) {
+        const nm = region.replace('Região ','');
+        document.getElementById('selectedRegionTitle').textContent =
+          `Plantas recomendadas para a Região ${nm}`;
+        setTimeout(() => document.getElementById('resultsContainer')
+          .scrollIntoView({ behavior: 'smooth' }), 100);
+      } else {
+        setTimeout(() => document.getElementById('noResultsContainer')
+          .scrollIntoView({ behavior: 'smooth' }), 100);
+      }
+    }
+
+    function populatePlants(list, region, container) {
+      let found = false;
+      list.forEach(plant => {
+        const info = plant.safra?.[region];
+        if (!info) return;
+        found = true;
+
+        let seasonClass='season-regular', icon='fas fa-calendar-alt';
+        if (info.toLowerCase().includes('ano todo')) {
+          seasonClass='season-yearround'; icon='fas fa-check-circle';
         }
-        
-        // Função para popular os resultados de plantas
-        function populatePlants(plants, region, container) {
-            let found = false;
-            
-            plants.forEach(plant => {
-                // Verificar se a planta tem informações para a região selecionada
-                const plantInfo = plant[region];
-                if (plantInfo) {
-                    found = true;
-                    
-                    // Determinar a classe CSS com base no valor
-                    let seasonClass = 'season-regular';
-                    let iconClass = 'fas fa-calendar-alt';
-                    
-                    if (plantInfo.toLowerCase().includes('ano todo')) {
-                        seasonClass = 'season-yearround';
-                        iconClass = 'fas fa-check-circle';
-                    } else if (plantInfo.toLowerCase().includes('não é recomendado')) {
-                        seasonClass = 'season-notrecommended';
-                        iconClass = 'fas fa-times-circle';
-                    }
-                    
-                    // Criar o card da planta
-                    const card = document.createElement('div');
-                    card.className = 'plant-card rounded-lg overflow-hidden shadow-lg';
-                    
-                    card.innerHTML = `
-                        <div class="bg-gray-50 py-3 px-4 border-b border-gray-200">
-                            <h3 class="font-bold text-xl text-green-800">${plant.name}</h3>
-                        </div>
-                        <div class="p-4">
-                            <div class="${seasonClass} p-3 rounded">
-                                <div class="flex items-center">
-                                    <i class="${iconClass} mr-2"></i>
-                                    <p class="font-semibold">${plantInfo}</p>
-                                </div>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-gray-200">
-                                <p class="text-sm blog-placeholder">
-                                    <i class="fas fa-link mr-1"></i> Em breve: links para artigos sobre cultivo de ${plant.name}
-                                </p>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Adicionar o card ao container
-                    container.appendChild(card);
-                }
-            });
-            
-            return found;
+        if (info.toLowerCase().includes('não é recomendado')) {
+          seasonClass='season-notrecommended'; icon='fas fa-times-circle';
         }
-        
-        // Verificar se há parâmetros na URL para pré-selecionar a região
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const region = urlParams.get('regiao');
-            
-            if (region) {
-                const regionSelect = document.getElementById('regionSelect');
-                const regionOption = Array.from(regionSelect.options).find(option => 
-                    option.value.toLowerCase().includes(region.toLowerCase())
-                );
-                
-                if (regionOption) {
-                    regionOption.selected = true;
-                    searchPlants();
-                }
-            }
-        });
-    </script>
+
+        // monta o card
+        const card = document.createElement('div');
+        card.className = 'plant-card rounded-lg overflow-hidden shadow-lg';
+        card.innerHTML = `
+          <div class="bg-gray-50 py-3 px-4 border-b border-gray-200">
+            <h3 class="font-bold text-xl text-green-800">${plant.nome}</h3>
+          </div>
+          <div class="p-4">
+            <div class="${seasonClass} p-3 rounded">
+              <div class="flex items-center">
+                <i class="${icon} mr-2"></i>
+                <p class="font-semibold">${info}</p>
+              </div>
+            </div>
+          </div>`;
+
+        // envolve em <a>
+        const a = document.createElement('a');
+        a.href   = plant.link;
+        a.target = '_blank';
+        a.appendChild(card);
+        container.appendChild(a);
+      });
+      return found;
+    }
+
+    // pré-seleção via ?regiao=...
+    document.addEventListener('DOMContentLoaded', () => {
+      const p = new URLSearchParams(location.search).get('regiao');
+      if (p) {
+        const sel = document.getElementById('regionSelect');
+        Array.from(sel.options)
+          .find(o => o.value.toLowerCase().includes(p.toLowerCase()))
+          ?.selected = true;
+        searchPlants();
+      }
+    });
+  </script>
 </body>
 </html>
