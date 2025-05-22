@@ -1,0 +1,200 @@
+                // Formatar nome da região para exibição
+                const regionName = region.replace('Região ', '');
+                selectedRegionTitle.textContent = Plantas recomendadas para a Região ${regionName};
+                
+                // Scrollar suavemente até os resultados
+                setTimeout(() => {
+                    resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            } else {
+                resultsContainer.classList.add('hidden');
+                noResultsContainer.classList.remove('hidden');
+                
+                // Scrollar suavemente até a mensagem de nenhum resultado
+                setTimeout(() => {
+                    noResultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+        
+        // Função para popular os resultados de plantas
+        function populatePlants(plants, region, container) {
+            let found = false;
+            
+            plants.forEach(plant => {
+                // Verificar se a planta tem informações para a região selecionada
+                const plantInfo = plant[region];
+                if (plantInfo) {
+                    found = true;
+                    
+                    // Determinar a classe CSS com base no valor
+                    let seasonClass = 'season-regular';
+                    let iconClass = 'fas fa-calendar-alt';
+                    
+                    if (plantInfo.toLowerCase().includes('ano todo')) {
+                        seasonClass = 'season-yearround';
+                        iconClass = 'fas fa-check-circle';
+                    } else if (plantInfo.toLowerCase().includes('não é recomendado')) {
+                        seasonClass = 'season-notrecommended';
+                        iconClass = 'fas fa-times-circle';
+                    }
+                    
+                    // Criar o card da planta
+                    const card = document.createElement('div');
+                    card.className = 'plant-card rounded-lg overflow-hidden shadow-lg';
+                    
+                    card.innerHTML = 
+                        <div class="bg-gray-50 py-3 px-4 border-b border-gray-200">
+                            <h3 class="font-bold text-xl text-green-800">${plant.name}</h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="${seasonClass} p-3 rounded">
+                                <div class="flex items-center">
+                                    <i class="${iconClass} mr-2"></i>
+                                    <p class="font-semibold">${plantInfo}</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-gray-200">
+                                <p class="text-sm blog-placeholder">
+                                    <i class="fas fa-link mr-1"></i> Em breve: links para artigos sobre cultivo de ${plant.name}
+                                </p>
+                            </div>
+                        </div>
+                    ;
+                    
+                    // Adicionar o card ao container
+                    container.appendChild(card);
+                }
+            });
+            
+            return found;
+        }
+        
+        // Verificar se há parâmetros na URL para pré-selecionar a região
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const region = urlParams.get('regiao');
+            
+            if (region) {
+                const regionSelect = document.getElementById('regionSelect');
+                const regionOption = Array.from(regionSelect.options).find(option => 
+                    option.value.toLowerCase().includes(region.toLowerCase())
+                );
+                
+                if (regionOption) {
+                    regionOption.selected = true;
+                    searchPlants();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+---
+
+Arquivo: plantas.json:
+
+[
+  {
+    "nome": "Abóbora",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-aboboras.html"
+  },
+  {
+    "nome": "Abobrinha",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-abobrinha.html"
+  },
+  {
+    "nome": "Acelga",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-acelga.html"
+  },
+  {
+    "nome": "Agrião",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-agriao.html"
+  },
+  {
+    "nome": "Alcachofra",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-alcachofra.html"
+  },
+  {
+    "nome": "Alface",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-alface.html"
+  },
+  {
+    "nome": "Alho-poró",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-alho-poro.html"
+  },
+  {
+    "nome": "Almeirão",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-almeirao.html"
+  },
+  {
+    "nome": "Bertalha",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-bertalha.html"
+  },
+  {
+    "nome": "Berinjela",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-berinjela.html"
+  },
+  {
+    "nome": "Brócolis",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-brocolis.html"
+  },
+  {
+    "nome": "Cebolinha",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-cebolinha.html"
+  },
+  {
+    "nome": "Chicória",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-chicoria.html"
+  },
+  {
+    "nome": "Coentro",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-coentro.html"
+  },
+  {
+    "nome": "Couve (folha)",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-couve-folha.html"
+  },
+  {
+    "nome": "Couve-chinesa",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-couve-chinesa.html"
+  },
+  {
+    "nome": "Couve-flor",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-couve-flor.html"
+  },
+  {
+    "nome": "Chuchu",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-chuchu.html"
+  },
+  {
+    "nome": "Ervilha",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-ervilha.html"
+  },
+  {
+    "nome": "Espinafre",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-espinafre.html"
+  },
+  {
+    "nome": "Feijão-vagem",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-feijao-vagem.html"
+  },
+  {
+    "nome": "Jiló",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-jilo.html"
+  },
+  {
+    "nome": "Maxixe",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-maxixe.html"
+  },
+  {
+    "nome": "Milho",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-milho.html"
+  },
+  {
+    "nome": "Mostarda",
+    "link": "https://zambolegacy.blogspot.com/2025/05/como-cultivar-mostarda.html"
+  },
+  {
+    "nome": "Pepino",
